@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDFDFD"/>
+      <stop offset="100%" stop-color="#ECECED"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.12)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <ellipse cx="400" cy="500" rx="300" ry="24" fill="url(#shadow)"/>
+  <g stroke="#8E8E93" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 150 480 L 650 480" stroke-width="4"/>
+    <g fill="#FFFFFF">
+      <path d="M 250 470 L 250 350 L 340 350 L 375 395 L 520 395 L 520 470 Z"/>
+      <rect x="340" y="356" width="30" height="34" rx="4" fill="#ECECED"/>
+      <circle cx="305" cy="470" r="24" fill="#E5E5EA"/>
+      <circle cx="470" cy="470" r="24" fill="#E5E5EA"/>
+    </g>
+    <path d="M 560 380 L 610 380 M 588 362 L 610 380 L 588 398" stroke="#0071E3"/>
+  </g>
+  <text x="400" y="150" font-family="-apple-system, PingFang SC, sans-serif" font-size="15" font-weight="500" fill="#86868B" text-anchor="middle" letter-spacing="3">DELIVERY ZONE · 交车服务展区</text>
+  <text x="400" y="565" font-family="-apple-system, PingFang SC, sans-serif" font-size="13" fill="#AEAEB2" text-anchor="middle">门店场景示意图 · 实拍素材整理中</text>
+</svg>

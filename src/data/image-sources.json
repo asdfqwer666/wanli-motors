@@ -1,0 +1,20 @@
+{
+  "policy": "本文件记录内置演示素材的来源与真实性等级，仅作证据留档，请勿手工修改。",
+  "generatedBy": "scripts/generate-placeholders.js",
+  "demoAssets": [
+    {
+      "matchLevel": "category",
+      "kind": "vector-placeholder",
+      "path": "public/images/demo/models/<slug>/cover.svg",
+      "note": "系统生成的车型分类演示图，仅表达车型类别与型号文字，不代表实车外观。"
+    }
+  ],
+  "storeScenes": [
+    {
+      "matchLevel": "placeholder",
+      "kind": "vector-placeholder",
+      "path": "public/images/store/*.svg",
+      "note": "门店场景示意图，实拍素材整理中，上线前以门店实拍照片替换。"
+    }
+  ]
+}
