@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Compass, Copy, MapPin, X } from "lucide-react";
 import { companyInfo } from "@/data/company-info";
@@ -16,7 +17,13 @@ interface NavigationSheetProps {
 export default function NavigationSheet({ label = "一键导航到店", variant = "ghost", className }: NavigationSheetProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const links = buildNavigationLinks();
+
+  // Portal 到 body：避免顶栏 backdrop-blur 把 fixed 弹层锚定在导航条内导致越界
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const copyAddress = async () => {
     try {
@@ -50,16 +57,18 @@ export default function NavigationSheet({ label = "一键导航到店", variant 
         {label}
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setOpen(false)}
-            className="fixed inset-0 z-[60] flex items-end justify-center bg-black/30 backdrop-blur-sm sm:items-center"
-          >
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setOpen(false)}
+                className="fixed inset-0 z-[60] flex items-end justify-center bg-black/30 backdrop-blur-sm sm:items-center"
+              >
             <motion.div
               initial={{ y: 48, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -115,8 +124,10 @@ export default function NavigationSheet({ label = "一键导航到店", variant 
               </p>
             </motion.div>
           </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </>
   );
 }
