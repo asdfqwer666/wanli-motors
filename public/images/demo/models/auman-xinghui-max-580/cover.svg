@@ -5,21 +5,66 @@
       <stop offset="100%" stop-color="#ECECED"/>
     </linearGradient>
     <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="rgba(0,0,0,0.12)"/>
+      <stop offset="0%" stop-color="rgba(0,0,0,0.14)"/>
       <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
     </radialGradient>
+    <linearGradient id="cabGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4C7CC0"/>
+      <stop offset="100%" stop-color="#31517F"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C4D6E8"/>
+      <stop offset="100%" stop-color="#8FB0CC"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBFCFD"/>
+      <stop offset="100%" stop-color="#E4E7EB"/>
+    </linearGradient>
+    <linearGradient id="tankGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EDEFF2"/>
+      <stop offset="100%" stop-color="#C3C8CF"/>
+    </linearGradient>
+    <linearGradient id="bedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F2A93B"/>
+      <stop offset="100%" stop-color="#D97E1F"/>
+    </linearGradient>
   </defs>
   <rect width="1200" height="750" fill="url(#bg)"/>
-  <ellipse cx="600" cy="580" rx="460" ry="40" fill="url(#shadow)"/>
-  <g fill="none" stroke="#D1D1D6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M 280 540 L 920 540" stroke="#8E8E93" stroke-width="4"/>
-    <path d="M 320 540 L 320 280 L 480 280 L 580 340 L 880 340 L 880 540 Z"/>
-    <path d="M 480 280 L 480 420 L 320 420"/>
-    <circle cx="390" cy="540" r="45" fill="#E5E5EA" stroke="#8E8E93" stroke-width="5"/>
-    <circle cx="750" cy="540" r="45" fill="#E5E5EA" stroke="#8E8E93" stroke-width="5"/>
-    <circle cx="850" cy="540" r="45" fill="#E5E5EA" stroke="#8E8E93" stroke-width="5"/>
+  <ellipse cx="620" cy="575" rx="430" ry="26" fill="url(#shadow)"/>
+  <line x1="230" y1="560" x2="980" y2="560" stroke="#8E8E93" stroke-width="5" stroke-linecap="round"/><rect x="300" y="492" width="650" height="18" rx="7" fill="#6B7078"/><g>
+    <path d="M 342 244 L 386 198 L 508 198 L 508 244 Z" fill="url(#cabGrad)" stroke="#9AA0A8" stroke-width="2"/>
+    <path d="M 268 492 L 262 306 Q 262 244 324 244 L 492 244 Q 508 244 508 262 L 508 492 Z"
+      fill="url(#cabGrad)" stroke="#9AA0A8" stroke-width="2.5"/>
+    <path d="M 292 272 L 480 272 Q 488 272 488 284 L 488 352 L 292 352 Z"
+      fill="url(#glassGrad)" stroke="#7E93A8" stroke-width="2.5"/>
+    <line x1="398" y1="352" x2="398" y2="488" stroke="rgba(255,255,255,0.55)" stroke-width="3"/>
+    <rect x="413" y="366" width="26" height="7" rx="3.5" fill="#7A7F87"/>
+    <rect x="250" y="298" width="10" height="26" rx="3" fill="#5A5E66"/>
+    <rect x="256" y="428" width="40" height="17" rx="5" fill="#FFE9A8" stroke="#D6B84C" stroke-width="2"/>
+    <rect x="246" y="462" width="72" height="30" rx="7" fill="#7A7F87"/>
+    <rect x="434" y="464" width="42" height="28" rx="5" fill="#5A5E66"/>
+  </g><path d="M 636 468 L 742 468 L 726 492 L 652 492 Z" fill="#4A4E55"/><g>
+    
+    <circle cx="336" cy="512" r="48" fill="#2E3035"/>
+    <circle cx="336" cy="512" r="28.799999999999997" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <g stroke="#A7ABB2" stroke-width="4" stroke-linecap="round"><line x1="328.3" y1="512.0" x2="313.9" y2="512.0"/><line x1="332.2" y1="505.3" x2="325.0" y2="492.9"/><line x1="339.8" y1="505.3" x2="347.0" y2="492.9"/><line x1="343.7" y1="512.0" x2="358.1" y2="512.0"/><line x1="339.8" y1="518.7" x2="347.0" y2="531.1"/><line x1="332.2" y1="518.7" x2="325.0" y2="531.1"/></g>
+    <circle cx="336" cy="512" r="8.16" fill="#8E8E93"/>
+  </g><g>
+    <circle cx="835.76" cy="512" r="45.12" fill="#2E3035"/>
+       <circle cx="835.76" cy="512" r="26.880000000000003" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <circle cx="806" cy="512" r="48" fill="#2E3035"/>
+    <circle cx="806" cy="512" r="28.799999999999997" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <g stroke="#A7ABB2" stroke-width="4" stroke-linecap="round"><line x1="798.3" y1="512.0" x2="783.9" y2="512.0"/><line x1="802.2" y1="505.3" x2="795.0" y2="492.9"/><line x1="809.8" y1="505.3" x2="817.0" y2="492.9"/><line x1="813.7" y1="512.0" x2="828.1" y2="512.0"/><line x1="809.8" y1="518.7" x2="817.0" y2="531.1"/><line x1="802.2" y1="518.7" x2="795.0" y2="531.1"/></g>
+    <circle cx="806" cy="512" r="8.16" fill="#8E8E93"/>
+  </g><g>
+    <circle cx="949.76" cy="512" r="45.12" fill="#2E3035"/>
+       <circle cx="949.76" cy="512" r="26.880000000000003" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <circle cx="920" cy="512" r="48" fill="#2E3035"/>
+    <circle cx="920" cy="512" r="28.799999999999997" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <g stroke="#A7ABB2" stroke-width="4" stroke-linecap="round"><line x1="912.3" y1="512.0" x2="897.9" y2="512.0"/><line x1="916.2" y1="505.3" x2="909.0" y2="492.9"/><line x1="923.8" y1="505.3" x2="931.0" y2="492.9"/><line x1="927.7" y1="512.0" x2="942.1" y2="512.0"/><line x1="923.8" y1="518.7" x2="931.0" y2="531.1"/><line x1="916.2" y1="518.7" x2="909.0" y2="531.1"/></g>
+    <circle cx="920" cy="512" r="8.16" fill="#8E8E93"/>
   </g>
-  <text x="600" y="200" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="20" font-weight="600" fill="#86868B" text-anchor="middle" letter-spacing="4">AUMAN</text>
-  <text x="600" y="240" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="34" font-weight="700" fill="#1D1D1F" text-anchor="middle">欧曼星辉 MAX 580</text>
-  <text x="600" y="470" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="16" font-weight="500" fill="#86868B" text-anchor="middle">6×4 牵引车 · 选型展示图</text>
+  <text x="600" y="132" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="21" font-weight="600" fill="#86868B" text-anchor="middle" letter-spacing="5">AUMAN</text>
+  <text x="600" y="176" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="34" font-weight="700" fill="#1D1D1F" text-anchor="middle">欧曼星辉 MAX 580</text>
+  <text x="600" y="654" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="16" font-weight="500" fill="#86868B" text-anchor="middle">6×4 牵引车 · 干线高效物流 · 车型展示图（非门店实拍）</text>
 </svg>
