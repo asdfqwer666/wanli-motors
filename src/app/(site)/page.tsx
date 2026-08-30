@@ -4,9 +4,11 @@ import { companyInfo } from "@/data/company-info";
 import HeroSection from "@/components/home/HeroSection";
 import BrandTabs from "@/components/home/BrandTabs";
 import FeaturedGrid from "@/components/home/FeaturedGrid";
+import DecisionToolsSection from "@/components/home/DecisionToolsSection";
 import StoreGallery from "@/components/home/StoreGallery";
 import SalesTeamSection from "@/components/home/SalesTeamSection";
 import TrustSection from "@/components/home/TrustSection";
+import NavigationSheet from "@/components/common/NavigationSheet";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +39,7 @@ export default function HomePage() {
       <HeroSection />
       <BrandTabs />
       <FeaturedGrid />
+      <DecisionToolsSection />
       <StoreGallery />
       <SalesTeamSection />
       <TrustSection />
@@ -82,6 +85,11 @@ export default function HomePage() {
               联系销售顾问
               <ArrowRight size={16} />
             </Link>
+            <NavigationSheet
+              label="一键导航到店"
+              variant="light"
+              className="px-6 py-3 text-[15px]"
+            />
             <Link
               href="/models"
               className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-white/10"

@@ -3,6 +3,7 @@ import { Clock, MapPin, Navigation } from "lucide-react";
 import { companyInfo } from "@/data/company-info";
 import { salesConsultants } from "@/data/sales-consultants";
 import { ConsultantCard } from "@/components/home/SalesTeamSection";
+import NavigationSheet from "@/components/common/NavigationSheet";
 
 export const metadata: Metadata = {
   title: "联系我们",
@@ -10,8 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const q = encodeURIComponent(companyInfo.primaryAddress);
-
   return (
     <div className="mx-auto max-w-6xl px-6 pb-28 pt-32">
       <div className="max-w-3xl">
@@ -48,29 +47,18 @@ export default function ContactPage() {
             <Navigation size={17} />
             地图导航
           </h2>
-          <p className="mt-3 text-sm text-white/70">点击下方入口跳转到地图平台搜索公司地址。</p>
-          <div className="mt-4 flex flex-col gap-2">
-            <a
-              href={`https://www.amap.com/search?query=${q}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-white px-4 py-2.5 text-center text-sm font-medium text-apple-text transition-opacity hover:opacity-90"
-            >
-              高德地图导航
-            </a>
-            <a
-              href={`https://map.baidu.com/search/${q}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-white/30 px-4 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-white/10"
-            >
-              百度地图导航
-            </a>
+          <p className="mt-3 text-sm text-white/70">一键调起高德、百度、腾讯或 Apple 地图，直达颍东展厅。</p>
+          <div className="mt-4">
+            <NavigationSheet
+              label="选择地图导航"
+              variant="light"
+              className="w-full py-2.5"
+            />
           </div>
         </div>
       </div>
 
-      <section className="mt-16">
+      <section id="consultants" className="mt-16 scroll-mt-28">
         <h2 className="text-2xl font-semibold tracking-tight">销售顾问名录</h2>
         <p className="mt-3 text-apple-subtext">四位顾问直线电话，点击卡片按钮即可一键拨打（手机端生效）。</p>
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

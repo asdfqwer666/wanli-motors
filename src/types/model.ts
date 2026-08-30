@@ -17,6 +17,21 @@ export interface ModelSpecs {
   curbWeight: string | null;
 }
 
+/** 「3 秒选型决策卡」结构化判断档案（编辑性建议内容，非厂家参数） */
+export interface TruckDecisionProfile {
+  targetUser: string;
+  boundaryCondition: string;
+  paybackEstimate: string;
+  killerFeatures: string[];
+  recommendScore: number;
+}
+
+/** TCO 测算参数：百公里参考能耗 + 默认能源单价（均为可调估算默认值） */
+export interface TruckTCOConfig {
+  fuelConsumption100km: number;
+  unitPriceEstimate: number;
+}
+
 export interface TruckModel {
   slug: string;
   name: string;
@@ -33,5 +48,7 @@ export interface TruckModel {
   scenario: string;
   highlights: string[];
   specs: ModelSpecs;
+  decision: TruckDecisionProfile;
+  tco: TruckTCOConfig;
   featured: boolean;
 }

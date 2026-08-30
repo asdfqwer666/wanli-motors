@@ -7,6 +7,8 @@ const path = require('path');
 
 const FORBIDDEN_WORD = '颖' + '东区';
 const CORRECT_WORD = '颍东区';
+// 已移除人员姓名校验（通过 Unicode 码点拼接，避免脚本源码自身出现该字样）
+const FORBIDDEN_PERSON = String.fromCharCode(0x674e) + String.fromCharCode(0x5e7f) + String.fromCharCode(0x5e73);
 
 const TARGET_DIRS = ['src', 'public', 'scripts', 'data'];
 const TARGET_ROOT_FILES = ['README.md'];
@@ -23,6 +25,10 @@ function scanFile(fullPath) {
   if (content.includes(FORBIDDEN_WORD)) {
     console.error(`\x1b[31m[TEXT ERROR]\x1b[0m 发现严禁错别字 "${FORBIDDEN_WORD}" 在文件: ${fullPath}`);
     console.error(`            必须修正为正确的 "${CORRECT_WORD}"！`);
+    errorCount++;
+  }
+  if (content.includes(FORBIDDEN_PERSON)) {
+    console.error(`\x1b[31m[COMPLIANCE ERROR]\x1b[0m 发现已移除人员姓名（校验码 PERSON-01）出现在文件: ${fullPath}`);
     errorCount++;
   }
 }

@@ -5,6 +5,7 @@ export interface SalesConsultant {
   phone: string;
   displayPhone: string;
   avatarPlaceholderText: string;
+  badge: string;
   active: boolean;
   tags: string[];
 }

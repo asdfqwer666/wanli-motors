@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
-import { Building2, Clock, MapPin, Navigation, Warehouse } from "lucide-react";
+import { Building2, Clock, MapPin, Warehouse } from "lucide-react";
 import { companyInfo } from "@/data/company-info";
 import StoreGallery from "@/components/home/StoreGallery";
+import NavigationSheet from "@/components/common/NavigationSheet";
 
 export const metadata: Metadata = {
   title: "门店与企业形象",
   description: "阜阳市万里汽车销售服务有限公司 —— 位于颍东区的欧曼/乘龙授权展厅、标准化停放区与交付服务。"
 };
-
-function mapLinks(address: string) {
-  const q = encodeURIComponent(address);
-  return [
-    { label: "高德地图导航", href: `https://www.amap.com/search?query=${q}` },
-    { label: "百度地图导航", href: `https://map.baidu.com/search/${q}` }
-  ];
-}
 
 export default function AboutPage() {
   return (
@@ -73,19 +66,8 @@ export default function AboutPage() {
               公司主展厅
             </h2>
             <p className="mt-3 text-sm leading-relaxed">{companyInfo.primaryAddress}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {mapLinks(companyInfo.primaryAddress).map((l) => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-apple-border bg-white px-4 py-1.5 text-sm text-apple-text transition-colors hover:bg-apple-hover"
-                >
-                  <Navigation size={13} />
-                  {l.label}
-                </a>
-              ))}
+            <div className="mt-4">
+              <NavigationSheet label="一键导航到展厅" variant="primary" className="w-full py-2.5" />
             </div>
           </div>
 

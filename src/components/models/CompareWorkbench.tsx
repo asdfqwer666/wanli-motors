@@ -15,6 +15,7 @@ const UNKNOWN = "— 咨询门店";
 
 export default function CompareWorkbench({ allModels, initialIds }: CompareWorkbenchProps) {
   const [ids, setIds] = useState<string[]>(initialIds);
+  const [onlyDiff, setOnlyDiff] = useState(false);
   const selected = allModels.filter((m) => ids.includes(m.slug));
 
   const toggle = (slug: string) => {
@@ -36,8 +37,11 @@ export default function CompareWorkbench({ allModels, initialIds }: CompareWorkb
     { label: "变速箱档位", get: () => UNKNOWN, unknown: true },
     { label: "后桥速比", get: () => UNKNOWN, unknown: true },
     { label: "整备质量", get: () => UNKNOWN, unknown: true },
-    { label: "现车 / 价格", get: () => "门店详询", unknown: true }
+    { label: "价格 / 现车", get: () => "咨询门店底价", unknown: true }
   ];
+
+  const isRowDiff = (row: (typeof rows)[number]) =>
+    selected.length < 2 || new Set(selected.map((m) => row.get(m))).size > 1;
 
   return (
     <div className="space-y-8">
@@ -64,9 +68,31 @@ export default function CompareWorkbench({ allModels, initialIds }: CompareWorkb
             );
           })}
         </div>
-        <p className="mt-3 text-xs text-apple-subtext">
-          已选 {ids.length} 款 · 未确认参数将显示“— 咨询门店”，本页不做任何虚构数值展示。
-        </p>
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-xs text-apple-subtext">
+            已选 {ids.length} 款 · 未确认参数将显示“— 咨询门店”，本页不做任何虚构数值展示。
+          </p>
+          <button
+            type="button"
+            onClick={() => setOnlyDiff((v) => !v)}
+            className={cn(
+              "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium transition-colors",
+              onlyDiff
+                ? "border-apple-blue bg-apple-blue text-white"
+                : "border-apple-border bg-white text-apple-subtext hover:text-apple-text"
+            )}
+          >
+            <span
+              className={cn(
+                "flex h-4 w-7 items-center rounded-full p-0.5 transition-colors",
+                onlyDiff ? "justify-end bg-white/40" : "justify-start bg-neutral-300"
+              )}
+            >
+              <span className="h-3 w-3 rounded-full bg-white shadow" />
+            </span>
+            只看有差异的参数
+          </button>
+        </div>
       </section>
 
       {selected.length < 2 ? (
@@ -92,24 +118,28 @@ export default function CompareWorkbench({ allModels, initialIds }: CompareWorkb
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
-                <tr key={row.label} className="border-b border-apple-border last:border-b-0">
-                  <td className="px-6 py-3.5 text-sm text-apple-subtext">{row.label}</td>
-                  {selected.map((m) => (
-                    <td
-                      key={m.slug}
-                      className={cn(
-                        "px-6 py-3.5 text-sm",
-                        row.unknown ? "text-apple-subtext" : "font-medium"
-                      )}
-                    >
-                      {row.get(m)}
-                    </td>
-                  ))}
-                </tr>
-              ))}
+              {rows
+                .filter((row) => !onlyDiff || isRowDiff(row))
+                .map((row) => (
+                  <tr key={row.label} className="border-b border-apple-border last:border-b-0">
+                    <td className="px-6 py-3.5 text-sm text-apple-subtext">{row.label}</td>
+                    {selected.map((m) => (
+                      <td
+                        key={m.slug}
+                        className={cn("px-6 py-3.5 text-sm", row.unknown ? "text-apple-subtext" : "font-medium")}
+                      >
+                        {row.get(m)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
             </tbody>
           </table>
+          {!onlyDiff && selected.length >= 2 && (
+            <p className="px-6 py-3 text-[11px] text-apple-subtext">
+              提示：开启「只看有差异的参数」可快速聚焦两款车的核心区别。
+            </p>
+          )}
         </div>
       )}
     </div>

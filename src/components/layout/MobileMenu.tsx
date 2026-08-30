@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { navLinks } from "@/lib/nav-links";
+import { openTruckMatcher } from "@/components/common/TruckMatcher";
 
 interface MobileMenuProps {
   open: boolean;
@@ -24,6 +26,17 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             {link.label}
           </Link>
         ))}
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            setTimeout(openTruckMatcher, 200);
+          }}
+          className="mt-1 flex items-center gap-2 rounded-xl px-4 py-3 text-[15px] font-medium text-apple-blue transition-colors hover:bg-apple-hover"
+        >
+          <Sparkles size={15} />
+          智能帮我选车
+        </button>
         <Link
           href="/contact"
           onClick={onClose}

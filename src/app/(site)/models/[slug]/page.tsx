@@ -7,6 +7,8 @@ import { getMediaFor, resolveCoverImage, resolveGalleryImages, GALLERY_STATUS_TE
 import { salesConsultants } from "@/data/sales-consultants";
 import CinemaStage from "@/components/models/CinemaStage";
 import SpecTable from "@/components/models/SpecTable";
+import DecisionCard from "@/components/models/DecisionCard";
+import TcoCalculator from "@/components/models/TcoCalculator";
 import ImageFallback from "@/components/common/ImageFallback";
 import { ConsultantCard } from "@/components/home/SalesTeamSection";
 
@@ -92,6 +94,18 @@ export default function ModelDetailPage({ params }: ModelDetailPageProps) {
             {h}
           </div>
         ))}
+      </div>
+
+      <div className="mt-16">
+        <DecisionCard decision={model.decision} />
+      </div>
+
+      <div className="mt-10">
+        <TcoCalculator
+          energy={model.energy}
+          consumption={model.tco.fuelConsumption100km}
+          defaultPrice={model.tco.unitPriceEstimate}
+        />
       </div>
 
       <section className="mt-16">
