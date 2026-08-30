@@ -59,7 +59,8 @@ export default function ModelDetailPage({ params }: ModelDetailPageProps) {
             </span>
           </div>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">{model.name}</h1>
-          <p className="mt-3 text-apple-subtext">核心场景：{model.scenario}</p>
+          <p className="mt-2 text-sm text-apple-subtext md:text-base">{model.subtitle}</p>
+          <p className="mt-3 text-apple-subtext">核心场景：{model.scenario} · 价格与现车请{model.priceGuide}</p>
         </div>
       </div>
 
@@ -86,12 +87,13 @@ export default function ModelDetailPage({ params }: ModelDetailPageProps) {
       </div>
 
       <div className="mt-6 grid gap-6 sm:grid-cols-3">
-        {model.highlights.map((h) => (
+        {model.highlightSpecs.map((spec) => (
           <div
-            key={h}
-            className="rounded-2xl border border-apple-border bg-apple-bg px-5 py-4 text-sm font-medium text-neutral-700"
+            key={spec.label}
+            className="rounded-2xl border border-apple-border bg-apple-bg px-5 py-4 text-center"
           >
-            {h}
+            <div className="text-[11px] text-apple-subtext">{spec.label}</div>
+            <div className="mt-1 text-sm font-semibold text-apple-text">{spec.value}</div>
           </div>
         ))}
       </div>

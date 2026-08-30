@@ -13,12 +13,15 @@ export default function SpecTable({ model }: SpecTableProps) {
     { label: "能源类型", value: model.energyLabel },
     { label: "驱动形式", value: model.drive },
     { label: "马力 / 功率", value: model.power.display },
+    { label: "最大扭矩", value: model.torque },
     { label: "推荐运输工况", value: model.scenario },
-    { label: "发动机型号", value: model.specs.engineModel ?? UNKNOWN },
-    { label: "变速箱档位", value: model.specs.gearbox ?? UNKNOWN },
-    { label: "后桥速比", value: model.specs.axleRatio ?? UNKNOWN },
+    { label: "发动机", value: model.engine },
+    { label: "变速箱", value: model.transmission },
+    { label: "后桥", value: model.rearAxle },
+    { label: "总质量 / 准拖挂", value: model.gvw },
     { label: "整车尺寸", value: model.specs.dimensions ?? UNKNOWN },
-    { label: "整备质量", value: model.specs.curbWeight ?? UNKNOWN }
+    { label: "整备质量", value: model.specs.curbWeight ?? UNKNOWN },
+    { label: "价格 / 现车", value: model.priceGuide }
   ];
 
   return (
@@ -35,7 +38,7 @@ export default function SpecTable({ model }: SpecTableProps) {
             <dt className="text-sm text-apple-subtext">{row.label}</dt>
             <dd
               className={
-                row.value === UNKNOWN
+                row.value === UNKNOWN || row.value === model.priceGuide
                   ? "text-right text-sm text-apple-subtext"
                   : "text-right text-sm font-medium"
               }

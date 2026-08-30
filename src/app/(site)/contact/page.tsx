@@ -61,7 +61,7 @@ export default function ContactPage() {
       <section id="consultants" className="mt-16 scroll-mt-28">
         <h2 className="text-2xl font-semibold tracking-tight">销售顾问名录</h2>
         <p className="mt-3 text-apple-subtext">四位顾问直线电话，点击卡片按钮即可一键拨打（手机端生效）。</p>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {salesConsultants.map((consultant) => (
             <ConsultantCard key={consultant.id} consultant={consultant} />
           ))}

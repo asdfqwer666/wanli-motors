@@ -39,6 +39,7 @@ export default function TcoCalculator({ energy, consumption, defaultPrice }: Tco
   const baselineCost = annualCost(mileage, DIESEL_BASE_CONSUMPTION, dieselPrice);
   const maxCost = Math.max(myCost, isAltEnergy ? baselineCost : 0);
   const saving = isAltEnergy ? baselineCost - myCost : 0;
+  const threeYearSaving = saving * 3;
 
   const priceCfg = priceRanges[energy];
 
@@ -64,7 +65,7 @@ export default function TcoCalculator({ energy, consumption, defaultPrice }: Tco
             </div>
             <input
               type="range"
-              min={8}
+              min={5}
               max={30}
               step={1}
               value={mileage}
@@ -73,8 +74,9 @@ export default function TcoCalculator({ energy, consumption, defaultPrice }: Tco
               aria-label="年运营里程"
             />
             <div className="mt-1 flex justify-between text-[10px] text-apple-subtext">
-              <span>8 万公里</span>
-              <span>30 万公里</span>
+              <span>5 万（短途区域）</span>
+              <span>15 万（标准干线）</span>
+              <span>30 万（双驾极限）</span>
             </div>
           </div>
 
@@ -161,6 +163,9 @@ export default function TcoCalculator({ energy, consumption, defaultPrice }: Tco
             <div className="mt-6 rounded-2xl border border-apple-green/30 bg-apple-green/10 px-5 py-4 text-center">
               <p className="text-xs text-neutral-600">按当前参数估算，较柴油基准每年可节省能耗支出</p>
               <p className="mt-1 text-2xl font-semibold tracking-tight text-apple-green">¥ {wan(saving)} 万 / 年</p>
+              <p className="mt-1 text-[11px] text-apple-subtext">
+                3 年累计约 <span className="font-semibold text-apple-text">¥ {wan(threeYearSaving)} 万</span>
+              </p>
               <p className="mt-1 text-[10px] text-apple-subtext">按 {mileage} 万公里/年 · 参考能耗 {consumption}{energy === "ev" ? " 度" : energy === "lng" ? " 公斤" : " 升"}/100km 估算</p>
             </div>
           )}

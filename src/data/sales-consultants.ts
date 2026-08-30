@@ -12,7 +12,7 @@ export const salesConsultants: SalesConsultant[] = [
     avatarPlaceholderText: "侯",
     badge: "重卡选型顾问",
     active: true,
-    tags: ["重卡选型", "金融分期", "欧曼/乘龙全系"]
+    tags: ["欧曼/乘龙全系重卡", "大客户车队集采", "低息金融分期"]
   },
   {
     id: "ren-xinbiao",
@@ -23,7 +23,7 @@ export const salesConsultants: SalesConsultant[] = [
     avatarPlaceholderText: "任",
     badge: "燃气重卡专家",
     active: true,
-    tags: ["干线物流", "燃气车型", "置换评估"]
+    tags: ["LNG 低气耗选型", "二手车置换评估", "长途运营 TCO 测算"]
   },
   {
     id: "ding-huaqiang",
@@ -34,7 +34,7 @@ export const salesConsultants: SalesConsultant[] = [
     avatarPlaceholderText: "丁",
     badge: "专用与工程车专家",
     active: true,
-    tags: ["冷链专用", "工程自卸", "车队集采"]
+    tags: ["温控冷链车定制", "工程渣土自卸", "挂靠与上牌营运"]
   },
   {
     id: "liu-huihui",
@@ -45,6 +45,17 @@ export const salesConsultants: SalesConsultant[] = [
     avatarPlaceholderText: "刘",
     badge: "新能源与城配专员",
     active: true,
-    tags: ["新能源轻卡", "城配物流", "上牌交付"]
+    tags: ["纯电重卡/轻卡", "同城商超仓配", "绿色物流路权政策"]
+  },
+  {
+    id: "chen-bo",
+    name: "陈波",
+    role: "资深销售顾问",
+    phone: "13956812256",
+    displayPhone: "139 5681 2256",
+    avatarPlaceholderText: "陈",
+    badge: "干线物流选型顾问",
+    active: true,
+    tags: ["高效快递快运车", "动力总成匹配", "全包售后服务协议"]
   }
 ];

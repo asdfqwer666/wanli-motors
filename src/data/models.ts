@@ -16,6 +16,7 @@ const categoryLabels: Record<ModelCategoryId, string> = {
   cargo: "载货车",
   "cold-chain": "冷链车",
   "dump-truck": "工程自卸",
+  light: "城配轻卡",
   "box-van": "专用厢式"
 };
 
@@ -24,265 +25,388 @@ const TCO_DIESEL = { fuelConsumption100km: 32, unitPriceEstimate: 7.5 };
 const TCO_LNG = { fuelConsumption100km: 29, unitPriceEstimate: 4.8 };
 const TCO_EV = { fuelConsumption100km: 140, unitPriceEstimate: 0.8 };
 
-type ModelSeed = Omit<TruckModel, "brandLabel" | "brandFull" | "energyLabel" | "energyShort" | "categoryLabel">;
+const PRICE_GUIDE = "咨询门店底价";
+
+type ModelSeed = Omit<TruckModel, "brandLabel" | "brandFull" | "energyLabel" | "energyShort" | "categoryLabel" | "priceGuide">;
 
 const seeds: ModelSeed[] = [
   {
     slug: "auman-xinghui-max-580",
     name: "欧曼星辉 MAX 580 牵引车",
+    subtitle: "580PS 旗舰干线物流重卡",
     brand: "auman",
     energy: "diesel",
     drive: "6×4",
     power: { value: 580, unit: "PS", display: "580 PS" },
+    torque: "2600 N·m",
+    engine: "福康 A13 高效柴油机",
+    transmission: "采埃孚 (ZF) 自动挡 AMT",
+    rearAxle: "轻量化小速比后桥",
+    gvw: "准拖挂 40 吨",
     category: "tractor",
     scenario: "干线高效物流",
-    highlights: ["大马力动力链", "高效干线运输", "长途舒适驾驶室"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合跨省干线高速物流、月行驶 1.5 万公里以上的配货运输与干线车队。",
-      boundaryCondition: "以短途倒短、工地泥泞重载为主的工况不建议选择，可考虑乘龙 M3 工程自卸版。",
-      paybackEstimate: "以 TCO 计算器默认参数估算，年燃料支出约 36 万元级；建议结合实际线路油耗与运价核算回本周期。",
-      killerFeatures: ["580PS 大马力动力链", "低风阻驾驶室", "平地板大卧铺"],
+      targetUser: "长途跨省高速物流、月跑 1.5 万公里以上的高时效干线车队。",
+      boundaryCondition: "短途倒短或恶劣泥泞工地不建议选配，可考虑乘龙 M3 工程自卸版。",
+      paybackEstimate: "高效动力链百公里节油 2~3L，年均省油费约 2.5~3.5 万元（估算值，随油价浮动）。",
+      killerFeatures: ["580 马力黄金动力链", "采埃孚最新 AMT", "平地板双卧舒适座舱"],
       recommendScore: 96
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "最大马力", value: "580 PS" },
+      { label: "驱动形式", value: "6×4" },
+      { label: "变速箱", value: "采埃孚 AMT" }
+    ],
     featured: true
   },
   {
     slug: "auman-xinghui-lng-500",
     name: "欧曼星辉 LNG 500 燃气重卡",
+    subtitle: "500PS 资源与长途干线节气王",
     brand: "auman",
     energy: "lng",
     drive: "6×4",
     power: { value: 500, unit: "PS", display: "500 PS" },
+    torque: "2300 N·m",
+    engine: "福康 15N 高热效率燃气机",
+    transmission: "采埃孚 12 挡 AMT",
+    rearAxle: "440 轻量化单级减速桥",
+    gvw: "准拖挂 40 吨",
     category: "tractor",
     scenario: "资源与长途运输",
-    highlights: ["LNG 燃气动力", "燃料成本友好", "资源运输场景"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合气源充足区域的资源运输与长途干线车队，年行驶里程越高、油气价差越大越划算。",
-      boundaryCondition: "运营线路上加气站稀少或以短途工况为主的用户不建议首选。",
-      paybackEstimate: "以 TCO 计算器默认参数估算，年燃料支出较同级柴油车型低约 15 万元（估算值，随油气价差浮动）。",
-      killerFeatures: ["LNG 双气瓶长续航", "燃料成本低", "自重优化"],
+      targetUser: "资源运输与长途干线车队，沿线加气便利、追求极致低燃料成本的用户。",
+      boundaryCondition: "沿途气站匮乏的偏远线路需先评估加气便利性。",
+      paybackEstimate: "以 TCO 计算器默认参数估算，年燃料支出较同级柴油车型低约 15 万元，约 12-14 个月可收回购车差价（估算值）。",
+      killerFeatures: ["1500L 超大气瓶", "低气耗高热效率", "长换油周期"],
       recommendScore: 93
     },
     tco: TCO_LNG,
+    highlightSpecs: [
+      { label: "最大马力", value: "500 PS" },
+      { label: "能源类型", value: "LNG 天然气" },
+      { label: "气瓶容积", value: "1500 L" }
+    ],
     featured: false
   },
   {
     slug: "auman-xinghui-cold-chain-530",
     name: "欧曼星辉 530 智能冷链车",
+    subtitle: "冷鲜速达 · 一体化温控载货车",
     brand: "auman",
     energy: "diesel",
-    drive: "8×4 / 6×2",
+    drive: "8×4",
     power: { value: 530, unit: "PS", display: "530 PS" },
+    torque: "2500 N·m",
+    engine: "福康 A12 柴油机",
+    transmission: "法士特 / ZF 变速箱",
+    rearAxle: "高可靠冷链专用桥",
+    gvw: "总质量 31 吨",
     category: "cold-chain",
     scenario: "生鲜温控冷链",
-    highlights: ["智能温控改装", "生鲜运输适配", "多驱动形式可选"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合生鲜果蔬、冻品等温控运输车队，对温区稳定性和时效要求高的线路。",
-      boundaryCondition: "以常温散货、建材为主的运输需求无需为温控配置买单，可选标准载货车。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 36 万元级；温控货单价高，回本通常快于常温运输（以实际货量为准）。",
-      killerFeatures: ["冷藏机组适配", "多温区可选", "8×4 / 6×2 可选"],
+      targetUser: "跨省生鲜水果、医药冷链等温控高附加值货物承运人。",
+      boundaryCondition: "普通普货散杂运输无法最大化体现冷厢温控价值。",
+      paybackEstimate: "原厂一体化冷厢匹配，温控货单价高，回本通常快于常温运输（以实际货量为准）。",
+      killerFeatures: ["原厂温控冷机", "高密度保温厢体", "双发电机不断电"],
       recommendScore: 94
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "马力输出", value: "530 PS" },
+      { label: "驱动形式", value: "8×4" },
+      { label: "厢体长度", value: "9.6 米冷藏" }
+    ],
     featured: true
   },
   {
     slug: "auman-xinghui-express-500",
     name: "欧曼星辉 500 高速快运车",
+    subtitle: "快递电商专用大容积快运车",
     brand: "auman",
     energy: "diesel",
     drive: "6×2",
     power: { value: 500, unit: "PS", display: "500 PS" },
-    category: "tractor",
+    torque: "2300 N·m",
+    engine: "福田康明斯高效柴油机",
+    transmission: "AMT 自动挡",
+    rearAxle: "高效后桥",
+    gvw: "总质量 25 吨",
+    category: "box-van",
     scenario: "快递电商干线",
-    highlights: ["6×2 快运布局", "高时效干线", "轻量化取向"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合以抛货为主的快递电商干线运输，追求时效与油耗平衡的车队。",
-      boundaryCondition: "自重较大的重载资源运输不适合 6×2 布局，建议选 6×4 车型。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 36 万元级；轻量化带来单趟多装，回本以票件量为准。",
-      killerFeatures: ["6×2 轻量化", "高速经济工况", "大容积挂载"],
+      targetUser: "电商快递高方量轻泡货运输车队，追求时效与装载效率。",
+      boundaryCondition: "重载矿石砂石工况不适合 6×2 快运布局。",
+      paybackEstimate: "大容积货厢单趟多装，回本以票件量与时效兑现为准。",
+      killerFeatures: ["大容积货厢", "超低货台底盘", "气囊减震悬挂"],
       recommendScore: 92
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "马力输出", value: "500 PS" },
+      { label: "驱动形式", value: "6×2" },
+      { label: "适用场景", value: "快递快运大方量" }
+    ],
     featured: false
   },
   {
     slug: "chenglong-h7-560-lng",
     name: "乘龙 H7 560 燃气牵引车",
+    subtitle: "东风柳汽旗舰节气王重卡",
     brand: "chenglong",
     energy: "lng",
     drive: "6×4",
     power: { value: 560, unit: "PS", display: "560 PS" },
+    torque: "2600 N·m",
+    engine: "玉柴 YCK13N / 潍柴 15N",
+    transmission: "法士特智行 AMT / 手动",
+    rearAxle: "轻量化 400 桥",
+    gvw: "准拖挂 40 吨",
     category: "tractor",
     scenario: "绿通及重载干线",
-    highlights: ["560PS 燃气动力", "绿通重载适配", "燃气经济性"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合绿通、重载干线运输，且线路沿线加气便利的车队与个体车主。",
-      boundaryCondition: "极寒地区或加气网络覆盖弱的线路需谨慎评估气源保障。",
+      targetUser: "中原及北方干线、煤炭砂石资源运输、专线物流车队。",
+      boundaryCondition: "短途市内配送无法发挥大马力燃气优势。",
       paybackEstimate: "以 TCO 计算器默认参数估算，年燃料支出较同级柴油车型低约 15 万元（估算值，随油气价差浮动）。",
-      killerFeatures: ["560PS 燃气动力", "气耗表现友好", "重载工况适配"],
+      killerFeatures: ["自重轻量化", "560 大马力起步快", "龙骨框架高安全车身"],
       recommendScore: 95
     },
     tco: TCO_LNG,
+    highlightSpecs: [
+      { label: "马力输出", value: "560 PS" },
+      { label: "燃料类型", value: "LNG 天然气" },
+      { label: "轻量化车身", value: "龙骨框架" }
+    ],
     featured: true
   },
   {
     slug: "chenglong-h5-cargo-260",
     name: "乘龙 H5 260 大容积载货车",
+    subtitle: "绿通零担散货全能载货车",
     brand: "chenglong",
     energy: "diesel",
     drive: "4×2",
     power: { value: 260, unit: "PS", display: "260 PS" },
+    torque: "1000 N·m",
+    engine: "玉柴 YCS06 经典六缸机",
+    transmission: "法士特 8 挡同步器箱",
+    rearAxle: "9 吨级高效后桥",
+    gvw: "总质量 18 吨",
     category: "cargo",
     scenario: "区域集散分拨",
-    highlights: ["大容积货厢", "区域分拨适配", "4×2 灵活机动"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合区域集散、分拨转运等中短途甩挂运输，看重装载效率与机动性。",
-      boundaryCondition: "长途干线牵引需求请选择重卡牵引车系，本车为载货车定位。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 20 万元级（按 10 万公里/年）；购车门槛低、周转快。",
-      killerFeatures: ["大容积货厢", "4×2 灵活机动", "区域路况适配"],
+      targetUser: "省内/城际 300-800 公里农副产品绿通、零担配货的个体卡友与小车队。",
+      boundaryCondition: "超重型矿石运输不建议选配。",
+      paybackEstimate: "经典六缸动力皮实耐用、残值高，绿通线路回本周期短（以实际货量核算）。",
+      killerFeatures: ["经典六缸动力", "超大生活卧铺", "合规最大尺寸装载"],
       recommendScore: 90
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "马力输出", value: "260 PS" },
+      { label: "发动机", value: "玉柴六缸机" },
+      { label: "货厢长度", value: "6.8 米 / 9.6 米" }
+    ],
     featured: false
   },
   {
     slug: "chenglong-k7-600",
     name: "乘龙 K7 600 旗舰重卡",
+    subtitle: "600PS 尊享高效陆地公务舱",
     brand: "chenglong",
     energy: "diesel",
     drive: "6×4",
     power: { value: 600, unit: "PS", display: "600 PS" },
+    torque: "2750 N·m",
+    engine: "东风康明斯 Z14 旗舰发动机",
+    transmission: "采埃孚 AMT 自动挡带液缓",
+    rearAxle: "德纳 469 小速比桥",
+    gvw: "准拖挂 40 吨",
     category: "tractor",
     scenario: "高端干线零担",
-    highlights: ["600PS 旗舰动力", "高端驾驶室配置", "干线零担高效"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合高端干线零担与快运线路，对驾驶舒适性、出勤率和形象有要求的车队。",
-      boundaryCondition: "预算优先、路线固定且运价偏低的场景可对比同系列经济配置。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 36 万元级；高端配置有助于吸引稳定优质货源。",
-      killerFeatures: ["600PS 旗舰动力", "高端舒适配置", "低风阻造型"],
+      targetUser: "跨省干线超远距离甩挂物流、高附加值快运大车队。",
+      boundaryCondition: "单程 200 公里内短途无法完全发挥大排量经济巡航区间。",
+      paybackEstimate: "大马力高巡航车速提升出勤效率，高端配置有助于锁定优质货源。",
+      killerFeatures: ["600 匹超强马力", "液力缓速器下坡无忧", "航空气囊减震座椅"],
       recommendScore: 94
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "马力输出", value: "600 PS" },
+      { label: "制动辅助", value: "采埃孚液力缓速器" },
+      { label: "驱动形式", value: "6×4" }
+    ],
     featured: false
   },
   {
     slug: "chenglong-t7-longhead",
     name: "乘龙 T7 长头美洲风重卡",
+    subtitle: "长头旗舰 · 极致安全与超低风阻",
     brand: "chenglong",
     energy: "diesel",
     drive: "6×4",
     power: { value: 560, unit: "PS", display: "560 PS" },
+    torque: "2600 N·m",
+    engine: "东康 / 潍柴大马力发动机",
+    transmission: "自动挡 AMT",
+    rearAxle: "高效驱动桥",
+    gvw: "准拖挂 40 吨",
     category: "tractor",
     scenario: "跨省长途舒适型",
-    highlights: ["长头安全布局", "美洲风造型", "长途舒适取向"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合跨省长途、单人在途时间长或双驾轮班的干线运输，重视安全与舒适。",
-      boundaryCondition: "市政短驳、频繁倒车挪库的工况对长头车长不友好，请优先平头车型。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 36 万元级；舒适性带来驾驶员留存与出勤稳定。",
-      killerFeatures: ["长头碰撞缓冲", "低风阻车头", "宽适卧铺空间"],
+      targetUser: "注重驾驶安全、追求美式长头造型与长途长住车内的高端卡友。",
+      boundaryCondition: "狭窄老旧城区装卸货转弯半径相对平头略大。",
+      paybackEstimate: "流线型长头风阻更低，长途油耗表现友好；碰撞缓冲吸能区更安全。",
+      killerFeatures: ["美式经典长头", "前置发动机超强吸能", "一体化生活舱"],
       recommendScore: 91
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "马力输出", value: "560 PS" },
+      { label: "车型结构", value: "长头安全重卡" },
+      { label: "风阻表现", value: "超低风阻减耗" }
+    ],
     featured: false
   },
   {
     slug: "chenglong-l3-city-light",
     name: "乘龙 L3 城配轻卡",
+    subtitle: "城市仓配物流 · 灵活合规能装",
     brand: "chenglong",
     energy: "diesel",
     drive: "4×2",
     power: { value: 160, unit: "PS", display: "160 PS" },
-    category: "cargo",
+    torque: "450 N·m",
+    engine: "玉柴 2.5L 高扭矩发动机",
+    transmission: "万里扬 6 挡变速箱",
+    rearAxle: "强化承载后桥",
+    gvw: "总质量 4.495 吨（蓝牌合规）",
+    category: "light",
     scenario: "同城商超仓配",
-    highlights: ["城配轻量车身", "商超仓配灵活", "城市路况适配"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合同城商超配送、仓配一体与市内短驳，路窄单多的城区场景。",
-      boundaryCondition: "重载干线或工程工况请选择重卡系列，轻卡承载上限有限。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 12 万元级（按 8 万公里/年）；购车与养车成本双低。",
-      killerFeatures: ["车身灵活", "城区通过性好", "装卸高效"],
+      targetUser: "市区商超配送、搬家拉货、水果生鲜批发、快递网点短驳。",
+      boundaryCondition: "长途跨省重载请选择重卡系列，轻卡承载上限有限。",
+      paybackEstimate: "蓝牌合规、C 照可驾，购车与养车成本双低，适合个体起步。",
+      killerFeatures: ["合规蓝牌 C 照可开", "低货台上下货省力", "转弯灵活走街串巷"],
       recommendScore: 89
     },
     tco: { fuelConsumption100km: 14, unitPriceEstimate: 7.5 },
+    highlightSpecs: [
+      { label: "马力输出", value: "160 PS" },
+      { label: "驾照要求", value: "C1 驾照即可" },
+      { label: "牌照属性", value: "合规蓝牌轻卡" }
+    ],
     featured: false
   },
   {
     slug: "chenglong-m3-engineering-400",
     name: "乘龙 M3 400 重载工程自卸车",
+    subtitle: "渣土与矿区基建工程自卸",
     brand: "chenglong",
     energy: "diesel",
     drive: "8×4",
     power: { value: 400, unit: "PS", display: "400 PS" },
+    torque: "1900 N·m",
+    engine: "玉柴重载工程柴油机",
+    transmission: "法士特 10 挡重载工程箱",
+    rearAxle: "轮边减速双联桥",
+    gvw: "总质量 31 吨",
     category: "dump-truck",
     scenario: "渣土与矿区工程",
-    highlights: ["8×4 重载底盘", "工程工况强化", "自卸上装适配"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合渣土清运、矿区砂石等工程自卸场景，重载爬坡与非铺装路面作业。",
-      boundaryCondition: "高速干线物流请选择牵引车系，自卸车不适应长途高速运营。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 30 万元级（按 8 万公里/年，工程工况油耗偏高）；工程运价结算周期需纳入资金规划。",
-      killerFeatures: ["8×4 重载底盘", "工程强化桥", "自卸上装适配"],
+      targetUser: "市政渣土清运、矿山碎石转运、水利工程与基建工地重载用户。",
+      boundaryCondition: "高速长途物流请选择牵引车系，自卸车不适应长途运营。",
+      paybackEstimate: "双层加强型大梁抗扭曲，重载工况出勤稳定；工程运价结算周期需纳入资金规划。",
+      killerFeatures: ["双联轮边减速桥", "高强钢大梁", "全液压重型顶升系统"],
       recommendScore: 92
     },
     tco: { fuelConsumption100km: 38, unitPriceEstimate: 7.5 },
+    highlightSpecs: [
+      { label: "马力输出", value: "400 PS" },
+      { label: "驱动形式", value: "8×4 工程自卸" },
+      { label: "后桥结构", value: "重载轮减桥" }
+    ],
     featured: false
   },
   {
     slug: "chenglong-h7-ev-400kw",
     name: "乘龙 H7 纯电牵引车",
+    subtitle: "400kW 零碳新能源重卡",
     brand: "chenglong",
     energy: "ev",
     drive: "6×4",
     power: { value: 400, unit: "kW", display: "400 kW" },
+    torque: "2800 N·m",
+    engine: "宁德时代磷酸铁锂电池 + 永磁同步电机",
+    transmission: "新能源专用水冷变速箱",
+    rearAxle: "高效电驱集成桥",
+    gvw: "准拖挂 40 吨",
     category: "tractor",
     scenario: "港口短驳/钢厂闭环",
-    highlights: ["纯电动力平台", "短驳高频场景", "运营能耗友好"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合港口短驳、钢厂/电厂闭环等有固定充电条件的高频短倒运输。",
-      boundaryCondition: "无固定充电桩、线路不固定的长途运输暂不建议选择纯电车型。",
-      paybackEstimate: "以 TCO 计算器默认参数估算，年能耗支出较同级柴油车型低约 19 万元（按工业电价 0.8 元/kWh 估算，实际以电价与充电模式为准）。",
-      killerFeatures: ["零排放路权优", "电耗成本低", "高频出勤稳定"],
+      targetUser: "港口短驳、钢厂/电厂闭环等有固定充电条件的高频短倒运输车队。",
+      boundaryCondition: "无固定充电桩、线路不固定的长途跨省干线暂不建议。",
+      paybackEstimate: "以 TCO 计算器默认参数（工业电价 0.8 元/度）估算，年能耗支出较同级柴油车型低约 19 万元（估算值）。",
+      killerFeatures: ["宁德时代动力电池", "充换电一体化", "绿牌免购置税"],
       recommendScore: 93
     },
     tco: TCO_EV,
+    highlightSpecs: [
+      { label: "峰值功率", value: "400 kW" },
+      { label: "电池品牌", value: "宁德时代" },
+      { label: "能源属性", value: "零排放绿牌" }
+    ],
     featured: true
   },
   {
     slug: "auman-xinghui-box-350",
-    name: "欧曼星辉 350 专用厢式运输车",
+    name: "欧曼星辉厢式 350",
+    subtitle: "工业制造与专线物流高品质厢车",
     brand: "auman",
     energy: "diesel",
     drive: "6×2",
     power: { value: 350, unit: "PS", display: "350 PS" },
+    torque: "1450 N·m",
+    engine: "福田康明斯 8.5L 柴油机",
+    transmission: "法士特 9 挡变速箱",
+    rearAxle: "轻量化单级减速桥",
+    gvw: "总质量 25 吨",
     category: "box-van",
     scenario: "工业散货及专线",
-    highlights: ["厢式专用上装", "6×2 专线布局", "工业散货适配"],
     specs: { engineModel: null, gearbox: null, axleRatio: null, dimensions: null, curbWeight: null },
     decision: {
-      targetUser: "适合工业散货、零担专线等需要厢式防护与定点往返运输的用户。",
-      boundaryCondition: "需要自卸功能的工程工况请选择自卸车系。",
-      paybackEstimate: "以 TCO 计算器默认参数估算年燃料支出约 26 万元级（按 12 万公里/年）；专线定点运营成本可控。",
-      killerFeatures: ["厢式防护", "6×2 专线经济性", "装卸便利"],
+      targetUser: "汽车配件、精密仪器、日化工业品等城际专线定点运输。",
+      boundaryCondition: "散装矿渣砂石等自卸工况不适配，请选择工程自卸车系。",
+      paybackEstimate: "厢式防护货损低，专线定点运营成本可控。",
+      killerFeatures: ["定制高强度厢体", "多开门便捷装卸", "6×2 专线经济性"],
       recommendScore: 88
     },
     tco: TCO_DIESEL,
+    highlightSpecs: [
+      { label: "马力输出", value: "350 PS" },
+      { label: "驱动形式", value: "6×2" },
+      { label: "厢体工艺", value: "高强轻量化" }
+    ],
     featured: false
   }
 ];
 
 export const models: TruckModel[] = seeds.map((seed) => ({
   ...seed,
+  priceGuide: PRICE_GUIDE,
   brandLabel: brandLabels[seed.brand].label,
   brandFull: brandLabels[seed.brand].full,
   energyLabel: energyLabels[seed.energy].label,
@@ -324,5 +448,6 @@ export const categoryFilterOptions: { id: ModelCategoryId | "all"; label: string
   { id: "cargo", label: "载货车" },
   { id: "cold-chain", label: "冷链车" },
   { id: "dump-truck", label: "工程自卸" },
+  { id: "light", label: "城配轻卡" },
   { id: "box-van", label: "专用厢式" }
 ];

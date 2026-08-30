@@ -1,6 +1,6 @@
 export type BrandId = "auman" | "chenglong";
 export type EnergyId = "diesel" | "lng" | "ev";
-export type ModelCategoryId = "tractor" | "cargo" | "cold-chain" | "dump-truck" | "box-van";
+export type ModelCategoryId = "tractor" | "cargo" | "cold-chain" | "dump-truck" | "light" | "box-van";
 
 export interface ModelPower {
   value: number;
@@ -8,7 +8,7 @@ export interface ModelPower {
   display: string;
 }
 
-/** 未经验证的参数一律为 null，界面展示“— 咨询门店”，严禁虚构 */
+/** 由门店确认提供的结构化参数；未经确认的字段为 null，界面展示“— 咨询门店” */
 export interface ModelSpecs {
   engineModel: string | null;
   gearbox: string | null;
@@ -32,9 +32,15 @@ export interface TruckTCOConfig {
   unitPriceEstimate: number;
 }
 
+export interface HighlightSpec {
+  label: string;
+  value: string;
+}
+
 export interface TruckModel {
   slug: string;
   name: string;
+  subtitle: string;
   brand: BrandId;
   brandLabel: string;
   brandFull: string;
@@ -43,12 +49,18 @@ export interface TruckModel {
   energyShort: string;
   drive: string;
   power: ModelPower;
+  torque: string;
+  engine: string;
+  transmission: string;
+  rearAxle: string;
+  gvw: string;
   category: ModelCategoryId;
   categoryLabel: string;
   scenario: string;
-  highlights: string[];
   specs: ModelSpecs;
   decision: TruckDecisionProfile;
   tco: TruckTCOConfig;
+  highlightSpecs: HighlightSpec[];
+  priceGuide: string;
   featured: boolean;
 }

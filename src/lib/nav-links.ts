@@ -3,7 +3,7 @@ export const navLinks = [
   { href: "/", label: "首页" },
   { href: "/models", label: "车型中心" },
   { href: "/compare", label: "车型对比" },
-  { href: "/about", label: "门店展示" },
-  { href: "/news", label: "门店动态" },
-  { href: "/contact", label: "联系我们" }
+  { href: "/about", label: "门店与实景" },
+  { href: "/news", label: "交付动态" },
+  { href: "/contact", label: "销售团队" }
 ];

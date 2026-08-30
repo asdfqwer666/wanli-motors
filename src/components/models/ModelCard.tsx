@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Check, ChevronRight } from "lucide-react";
+import { Check, CheckCircle, ChevronRight } from "lucide-react";
 import type { TruckModel } from "@/types/model";
 import { cn } from "@/lib/utils";
 import ImageFallback from "@/components/common/ImageFallback";
@@ -22,8 +22,6 @@ interface ModelCardProps {
 }
 
 export default function ModelCard({ model, cover, selectable = false, selected = false, onToggle }: ModelCardProps) {
-  const specChips = [model.power.display, model.drive, model.energyShort];
-
   return (
     <article className="group flex flex-col overflow-hidden rounded-3xl border border-apple-border bg-apple-card shadow-appleCard transition-shadow duration-300 hover:shadow-appleHover">
       <div className="relative aspect-[16/10] bg-gradient-to-b from-[#F5F5F7] to-[#ECECED]">
@@ -76,26 +74,37 @@ export default function ModelCard({ model, cover, selectable = false, selected =
             {model.name}
           </Link>
         </h3>
-        <p className="mt-1 text-sm text-apple-subtext">核心场景：{model.scenario}</p>
+        <p className="mt-1 line-clamp-1 text-xs text-apple-subtext">{model.subtitle}</p>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {specChips.map((chip) => (
-            <span
-              key={chip}
-              className="rounded-full border border-neutral-200/60 bg-neutral-100 px-2.5 py-1 text-xs font-medium text-neutral-600"
-            >
-              {chip}
-            </span>
+        <div className="my-4 grid grid-cols-3 gap-2 border-y border-black/[0.05] py-3">
+          {model.highlightSpecs.map((spec) => (
+            <div key={spec.label} className="text-center">
+              <div className="text-[10px] text-apple-subtext">{spec.label}</div>
+              <div className="mt-0.5 text-xs font-bold text-apple-text">{spec.value}</div>
+            </div>
           ))}
         </div>
 
-        <div className="mt-auto pt-5">
+        <div className="mb-4 rounded-xl bg-apple-pill p-2.5">
+          <div className="flex items-center gap-1 text-[11px] font-semibold text-apple-text">
+            <CheckCircle className="h-3.5 w-3.5 shrink-0 text-apple-green" />
+            <span className="line-clamp-1">适合：{model.decision.targetUser}</span>
+          </div>
+        </div>
+
+        <div className="mt-auto flex items-center justify-between pt-1">
           <Link
             href={`/models/${model.slug}`}
-            className="inline-flex items-center gap-1 text-sm font-medium text-apple-blue transition-colors hover:text-apple-blueHover"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-apple-blue group-hover:underline"
           >
-            查看车型详情
+            <span>探索详情</span>
             <ChevronRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+          <Link
+            href={`/models/${model.slug}`}
+            className="text-xs text-apple-subtext transition-colors hover:text-apple-text"
+          >
+            {model.power.display} · {model.drive}
           </Link>
         </div>
       </div>

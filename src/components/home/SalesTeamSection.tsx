@@ -77,7 +77,7 @@ export default function SalesTeamSection() {
         <p className="mt-3 text-apple-subtext">四位资深顾问 · 一对一选型建议 · 点击号码可复制，按钮一键直拨</p>
       </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {salesConsultants.map((consultant) => (
           <ConsultantCard key={consultant.id} consultant={consultant} />
         ))}
