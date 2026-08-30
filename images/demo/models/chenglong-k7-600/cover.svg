@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDFDFD"/>
+      <stop offset="100%" stop-color="#ECECED"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0.14)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+    <linearGradient id="cabGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D2574A"/>
+      <stop offset="100%" stop-color="#9E2F24"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C4D6E8"/>
+      <stop offset="100%" stop-color="#8FB0CC"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBFCFD"/>
+      <stop offset="100%" stop-color="#E4E7EB"/>
+    </linearGradient>
+    <linearGradient id="tankGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EDEFF2"/>
+      <stop offset="100%" stop-color="#C3C8CF"/>
+    </linearGradient>
+    <linearGradient id="bedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F2A93B"/>
+      <stop offset="100%" stop-color="#D97E1F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <ellipse cx="620" cy="575" rx="430" ry="26" fill="url(#shadow)"/>
+  <line x1="230" y1="560" x2="980" y2="560" stroke="#8E8E93" stroke-width="5" stroke-linecap="round"/><rect x="300" y="492" width="650" height="18" rx="7" fill="#6B7078"/><g>
+    <path d="M 342 232 L 386 186 L 508 186 L 508 232 Z" fill="url(#cabGrad)" stroke="#9AA0A8" stroke-width="2"/>
+    <path d="M 268 492 L 262 294 Q 262 232 324 232 L 492 232 Q 508 232 508 250 L 508 492 Z"
+      fill="url(#cabGrad)" stroke="#9AA0A8" stroke-width="2.5"/>
+    <path d="M 292 260 L 480 260 Q 488 260 488 272 L 488 340 L 292 340 Z"
+      fill="url(#glassGrad)" stroke="#7E93A8" stroke-width="2.5"/>
+    <line x1="398" y1="340" x2="398" y2="488" stroke="rgba(255,255,255,0.55)" stroke-width="3"/>
+    <rect x="413" y="354" width="26" height="7" rx="3.5" fill="#7A7F87"/>
+    <rect x="250" y="286" width="10" height="26" rx="3" fill="#5A5E66"/>
+    <rect x="256" y="428" width="40" height="17" rx="5" fill="#FFE9A8" stroke="#D6B84C" stroke-width="2"/>
+    <rect x="246" y="462" width="72" height="30" rx="7" fill="#7A7F87"/>
+    <rect x="434" y="464" width="42" height="28" rx="5" fill="#5A5E66"/>
+  </g><rect x="300" y="220" width="196" height="10" rx="5" fill="#E8C34A"/><path d="M 636 468 L 742 468 L 726 492 L 652 492 Z" fill="#4A4E55"/><rect x="262" y="428" width="40" height="17" rx="5" fill="#FFF6D9" stroke="#E8C34A" stroke-width="2"/><g>
+    
+    <circle cx="336" cy="512" r="48" fill="#2E3035"/>
+    <circle cx="336" cy="512" r="28.799999999999997" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <g stroke="#A7ABB2" stroke-width="4" stroke-linecap="round"><line x1="328.3" y1="512.0" x2="313.9" y2="512.0"/><line x1="332.2" y1="505.3" x2="325.0" y2="492.9"/><line x1="339.8" y1="505.3" x2="347.0" y2="492.9"/><line x1="343.7" y1="512.0" x2="358.1" y2="512.0"/><line x1="339.8" y1="518.7" x2="347.0" y2="531.1"/><line x1="332.2" y1="518.7" x2="325.0" y2="531.1"/></g>
+    <circle cx="336" cy="512" r="8.16" fill="#8E8E93"/>
+  </g><g>
+    <circle cx="835.76" cy="512" r="45.12" fill="#2E3035"/>
+       <circle cx="835.76" cy="512" r="26.880000000000003" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <circle cx="806" cy="512" r="48" fill="#2E3035"/>
+    <circle cx="806" cy="512" r="28.799999999999997" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <g stroke="#A7ABB2" stroke-width="4" stroke-linecap="round"><line x1="798.3" y1="512.0" x2="783.9" y2="512.0"/><line x1="802.2" y1="505.3" x2="795.0" y2="492.9"/><line x1="809.8" y1="505.3" x2="817.0" y2="492.9"/><line x1="813.7" y1="512.0" x2="828.1" y2="512.0"/><line x1="809.8" y1="518.7" x2="817.0" y2="531.1"/><line x1="802.2" y1="518.7" x2="795.0" y2="531.1"/></g>
+    <circle cx="806" cy="512" r="8.16" fill="#8E8E93"/>
+  </g><g>
+    <circle cx="949.76" cy="512" r="45.12" fill="#2E3035"/>
+       <circle cx="949.76" cy="512" r="26.880000000000003" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <circle cx="920" cy="512" r="48" fill="#2E3035"/>
+    <circle cx="920" cy="512" r="28.799999999999997" fill="#E3E5E8" stroke="#A7ABB2" stroke-width="3"/>
+    <g stroke="#A7ABB2" stroke-width="4" stroke-linecap="round"><line x1="912.3" y1="512.0" x2="897.9" y2="512.0"/><line x1="916.2" y1="505.3" x2="909.0" y2="492.9"/><line x1="923.8" y1="505.3" x2="931.0" y2="492.9"/><line x1="927.7" y1="512.0" x2="942.1" y2="512.0"/><line x1="923.8" y1="518.7" x2="931.0" y2="531.1"/><line x1="916.2" y1="518.7" x2="909.0" y2="531.1"/></g>
+    <circle cx="920" cy="512" r="8.16" fill="#8E8E93"/>
+  </g>
+  <text x="600" y="132" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="21" font-weight="600" fill="#86868B" text-anchor="middle" letter-spacing="5">CHENGLONG</text>
+  <text x="600" y="176" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="34" font-weight="700" fill="#1D1D1F" text-anchor="middle">乘龙 K7 600</text>
+  <text x="600" y="654" font-family="-apple-system, SF Pro Display, PingFang SC, sans-serif" font-size="16" font-weight="500" fill="#86868B" text-anchor="middle">6×4 旗舰重卡 · 高端干线零担 · 车型展示图（非门店实拍）</text>
+</svg>
