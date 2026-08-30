@@ -4,6 +4,17 @@ export type { SalesConsultant } from "@/types/sales";
 
 export const salesConsultants: SalesConsultant[] = [
   {
+    id: "chen-bo",
+    name: "陈波",
+    role: "资深销售顾问",
+    phone: "13956812256",
+    displayPhone: "139 5681 2256",
+    avatarPlaceholderText: "陈",
+    badge: "干线物流选型顾问",
+    active: true,
+    tags: ["高效快递快运车", "动力总成匹配", "全包售后服务协议"]
+  },
+  {
     id: "hou-xichang",
     name: "侯西昌",
     role: "资深销售顾问",
@@ -46,16 +57,5 @@ export const salesConsultants: SalesConsultant[] = [
     badge: "新能源与城配专员",
     active: true,
     tags: ["纯电重卡/轻卡", "同城商超仓配", "绿色物流路权政策"]
-  },
-  {
-    id: "chen-bo",
-    name: "陈波",
-    role: "资深销售顾问",
-    phone: "13956812256",
-    displayPhone: "139 5681 2256",
-    avatarPlaceholderText: "陈",
-    badge: "干线物流选型顾问",
-    active: true,
-    tags: ["高效快递快运车", "动力总成匹配", "全包售后服务协议"]
   }
 ];
