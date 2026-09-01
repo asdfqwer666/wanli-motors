@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { GitCompareArrows, X } from "lucide-react";
 import type { BrandId, EnergyId, ModelCategoryId, TruckModel } from "@/types/model";
@@ -11,25 +11,26 @@ import ModelFilters, { type FilterState } from "@/components/models/ModelFilters
 interface ModelsExplorerProps {
   models: TruckModel[];
   covers: Record<string, CoverInfo>;
-  initialBrand?: BrandId | "all";
-  initialEnergy?: EnergyId | "all";
-  initialCategory?: ModelCategoryId | "all";
 }
 
 const MAX_COMPARE = 4;
 
-export default function ModelsExplorer({
-  models,
-  covers,
-  initialBrand = "all",
-  initialEnergy = "all",
-  initialCategory = "all"
-}: ModelsExplorerProps) {
+export default function ModelsExplorer({ models, covers }: ModelsExplorerProps) {
   const router = useRouter();
-  const [filters, setFilters] = useState<FilterState>({
-    brand: initialBrand,
-    energy: initialEnergy,
-    category: initialCategory
+  const searchParams = useSearchParams();
+  const [filters, setFilters] = useState<FilterState>(() => {
+    const brand = searchParams.get("brand");
+    const energy = searchParams.get("energy");
+    const category = searchParams.get("category");
+    return {
+      brand: (["auman", "chenglong"] as BrandId[]).includes(brand as BrandId) ? (brand as BrandId) : "all",
+      energy: (["diesel", "lng", "ev"] as EnergyId[]).includes(energy as EnergyId) ? (energy as EnergyId) : "all",
+      category: (["tractor", "cargo", "cold-chain", "dump-truck", "box-van"] as ModelCategoryId[]).includes(
+        category as ModelCategoryId
+      )
+        ? (category as ModelCategoryId)
+        : "all"
+    };
   });
   const [selected, setSelected] = useState<string[]>([]);
 

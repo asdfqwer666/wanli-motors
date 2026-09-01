@@ -2,19 +2,27 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { X } from "lucide-react";
 import type { TruckModel } from "@/types/model";
 import { cn } from "@/lib/utils";
 
 interface CompareWorkbenchProps {
   allModels: TruckModel[];
-  initialIds: string[];
 }
 
 const UNKNOWN = "— 咨询门店";
 
-export default function CompareWorkbench({ allModels, initialIds }: CompareWorkbenchProps) {
-  const [ids, setIds] = useState<string[]>(initialIds);
+export default function CompareWorkbench({ allModels }: CompareWorkbenchProps) {
+  const searchParams = useSearchParams();
+  const [ids, setIds] = useState<string[]>(() => {
+    const raw = searchParams.get("ids") ?? "";
+    return raw
+      .split(",")
+      .map((s) => s.trim())
+      .filter((id) => allModels.some((m) => m.slug === id))
+      .slice(0, 4);
+  });
   const [onlyDiff, setOnlyDiff] = useState(false);
   const selected = allModels.filter((m) => ids.includes(m.slug));
 

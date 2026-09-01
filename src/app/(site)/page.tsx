@@ -10,8 +10,6 @@ import SalesTeamSection from "@/components/home/SalesTeamSection";
 import TrustSection from "@/components/home/TrustSection";
 import NavigationSheet from "@/components/common/NavigationSheet";
 
-export const dynamic = "force-dynamic";
-
 const dynamics = [
   {
     tag: "新车到店",

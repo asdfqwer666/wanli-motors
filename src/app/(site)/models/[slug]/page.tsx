@@ -12,7 +12,9 @@ import TcoCalculator from "@/components/models/TcoCalculator";
 import ImageFallback from "@/components/common/ImageFallback";
 import { ConsultantCard } from "@/components/home/SalesTeamSection";
 
-export const dynamic = "force-dynamic";
+export function generateStaticParams() {
+  return models.map((m) => ({ slug: m.slug }));
+}
 
 interface ModelDetailPageProps {
   params: { slug: string };
