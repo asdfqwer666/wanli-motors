@@ -12,6 +12,7 @@
     "generate:placeholders": "node scripts/generate-placeholders.js"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.9",
     "lucide-react": "^0.460.0",

@@ -77,7 +77,7 @@ export default function ModelsExplorer({
             <ModelCard
               key={model.slug}
               model={model}
-              cover={covers[model.slug] ?? { src: "", alt: model.name, isDemo: true }}
+              cover={covers[model.slug] ?? { src: "", alt: model.name, isDemo: true, kind: "placeholder" }}
               selectable
               selected={selected.includes(model.slug)}
               onToggle={toggle}

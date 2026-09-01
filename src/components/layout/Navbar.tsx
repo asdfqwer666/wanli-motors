@@ -46,6 +46,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   /** 120ms 进场防抖：鼠标快速扫过导航条不误触 */
   const handleMouseEnter = (key: MenuKey) => {
@@ -105,7 +106,7 @@ export default function Navbar() {
               </span>
             </Link>
 
-            <div className="hidden items-center gap-1 md:flex lg:gap-1.5">
+            <div className="hidden items-center gap-1 lg:flex lg:gap-1.5">
               <Link href="/models" className={navItemClass("models", "/models")} onMouseEnter={() => handleMouseEnter("models")}>
                 车型中心
               </Link>
@@ -140,12 +141,15 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <div className="flex items-center md:hidden">
+            <div className="flex items-center lg:hidden">
               <button
+                ref={mobileMenuButtonRef}
                 type="button"
-                aria-label={mobileMenuOpen ? "关闭菜单" : "打开菜单"}
+                aria-label={mobileMenuOpen ? "关闭导航菜单" : "打开导航菜单"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
                 onClick={() => setMobileMenuOpen((v) => !v)}
-                className="rounded-lg p-1.5 text-neutral-600 transition-colors hover:text-neutral-900"
+                className="flex h-11 w-11 items-center justify-center rounded-xl text-neutral-600 outline-none transition-colors hover:bg-black/[0.04] hover:text-neutral-900 focus-visible:ring-2 focus-visible:ring-apple-blue"
               >
                 {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
@@ -340,7 +344,7 @@ export default function Navbar() {
                 {activeMenu === "contact" && (
                   <div>
                     <span className="mb-3 block text-[11px] font-semibold uppercase tracking-wider text-apple-subtext">
-                      5 位专业认证销售顾问（点击直拨咨询）
+                      {salesConsultants.length} 位专业认证销售顾问（点击直拨咨询）
                     </span>
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                       {salesConsultants.map((consultant) => (
@@ -380,7 +384,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      <MobileMenu open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      <MobileMenu open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} triggerRef={mobileMenuButtonRef} />
     </>
   );
 }

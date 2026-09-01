@@ -14,8 +14,12 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function AdminModelsPage() {
+export default async function AdminModelsPage() {
   requireAdmin();
+
+  const mediaBySlug = Object.fromEntries(
+    await Promise.all(models.map(async (model) => [model.slug, await getMediaFor(model.slug)] as const))
+  );
 
   return (
     <AdminShell
@@ -24,7 +28,7 @@ export default function AdminModelsPage() {
     >
       <div className="grid gap-4 sm:grid-cols-2">
         {models.map((model) => {
-          const media = getMediaFor(model.slug);
+          const media = mediaBySlug[model.slug];
           const cover = resolveCoverImage(media, model.slug);
           const actualCount = media.actualImages.length;
           return (

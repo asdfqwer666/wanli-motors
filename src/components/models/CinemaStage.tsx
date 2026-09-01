@@ -30,6 +30,11 @@ export default function CinemaStage({ name, image, isDemo, className }: CinemaSt
         />
       </div>
       {isDemo ? <DisclaimerBadge className="absolute bottom-4 left-4 max-w-[85%]" /> : null}
+      {!isDemo ? (
+        <span className="absolute bottom-4 left-4 rounded-full bg-black/70 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+          {image.kind === "actual" ? "门店实拍" : image.sourceType === "official" ? "官方车型图" : "车型实拍参考图"}
+        </span>
+      ) : null}
     </section>
   );
 }

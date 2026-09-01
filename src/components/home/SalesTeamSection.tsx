@@ -74,7 +74,9 @@ export default function SalesTeamSection() {
     <section id="consultants" className="mx-auto max-w-6xl scroll-mt-28 px-6 py-24">
       <div className="text-center">
         <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">专属销售顾问团队</h2>
-        <p className="mt-3 text-apple-subtext">四位资深顾问 · 一对一选型建议 · 点击号码可复制，按钮一键直拨</p>
+        <p className="mt-3 text-apple-subtext">
+          {salesConsultants.length} 位资深顾问 · 一对一选型建议 · 点击号码可复制，按钮一键直拨
+        </p>
       </div>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">

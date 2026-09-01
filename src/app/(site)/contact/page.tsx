@@ -7,7 +7,7 @@ import NavigationSheet from "@/components/common/NavigationSheet";
 
 export const metadata: Metadata = {
   title: "联系我们",
-  description: "阜阳市万里汽车销售服务有限公司联系方式：颍东区展厅地址、营业时间与 4 位销售顾问直线电话。"
+  description: "阜阳市万里汽车销售服务有限公司联系方式：颍东区展厅地址、营业时间与 5 位销售顾问直线电话。"
 };
 
 export default function ContactPage() {

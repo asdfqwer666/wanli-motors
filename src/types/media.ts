@@ -1,5 +1,5 @@
-export type ImageKind = "demo" | "actual" | "placeholder";
-export type MatchLevel = "category" | "exact" | "placeholder";
+export type ImageKind = "demo" | "reference" | "actual" | "placeholder";
+export type MatchLevel = "category" | "series" | "exact" | "placeholder";
 
 export interface ModelImage {
   id: string;
@@ -10,6 +10,9 @@ export interface ModelImage {
   isCover: boolean;
   sortOrder: number;
   sourceId?: string;
+  sourceType?: "official" | "media";
+  storageKey?: string;
+  note?: string;
   width?: number;
   height?: number;
   createdAt?: string;
@@ -17,6 +20,7 @@ export interface ModelImage {
 
 export interface ModelMediaData {
   demoImages: ModelImage[];
+  referenceImages: ModelImage[];
   actualImages: ModelImage[];
 }
 

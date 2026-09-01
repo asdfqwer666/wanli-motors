@@ -6,11 +6,13 @@ import type { TruckModel } from "@/types/model";
 import { cn } from "@/lib/utils";
 import ImageFallback from "@/components/common/ImageFallback";
 import DisclaimerBadge from "@/components/common/DisclaimerBadge";
+import type { ImageKind } from "@/types/media";
 
 export interface CoverInfo {
   src: string;
   alt: string;
   isDemo: boolean;
+  kind: ImageKind;
 }
 
 interface ModelCardProps {
@@ -57,7 +59,11 @@ export default function ModelCard({ model, cover, selectable = false, selected =
           <div className="absolute inset-x-3 bottom-2.5 flex justify-center">
             <DisclaimerBadge className="max-w-full" />
           </div>
-        ) : null}
+        ) : (
+          <span className="absolute bottom-3 left-3 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-sm">
+            {cover.kind === "actual" ? "门店实拍" : "车型实拍参考图"}
+          </span>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">

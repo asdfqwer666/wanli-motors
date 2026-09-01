@@ -22,7 +22,7 @@ const item = {
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden pb-20 pt-36 md:pt-44">
+    <section data-testid="home-hero" className="relative overflow-hidden pb-20 pt-36 md:pt-44">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(255,255,255,0.9),transparent_70%)]"

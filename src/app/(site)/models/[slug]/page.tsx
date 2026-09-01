@@ -29,11 +29,11 @@ export function generateMetadata({ params }: ModelDetailPageProps): Metadata {
 
 const energyIcons = { diesel: Fuel, lng: Flame, ev: Zap } as const;
 
-export default function ModelDetailPage({ params }: ModelDetailPageProps) {
+export default async function ModelDetailPage({ params }: ModelDetailPageProps) {
   const model = getModelBySlug(params.slug);
   if (!model) notFound();
 
-  const media = getMediaFor(model.slug);
+  const media = await getMediaFor(model.slug);
   const cover = resolveCoverImage(media, model.slug);
   const gallery = resolveGalleryImages(media, model.slug);
   const EnergyIcon = energyIcons[model.energy];
@@ -122,7 +122,12 @@ export default function ModelDetailPage({ params }: ModelDetailPageProps) {
                 <div className="aspect-[4/3] bg-gradient-to-b from-[#F5F5F7] to-[#ECECED] p-4">
                   <ImageFallback src={img.src} alt={img.alt} className="h-full w-full object-contain" />
                 </div>
-                <figcaption className="px-4 py-3 text-xs text-apple-subtext">{img.alt}</figcaption>
+                <figcaption className="px-4 py-3 text-xs text-apple-subtext">
+                  <span className="mr-2 font-medium text-apple-text">
+                    {img.kind === "actual" ? "门店实拍" : img.sourceType === "official" ? "官方车型图" : img.kind === "reference" ? "车型实拍参考图" : "车型演示图"}
+                  </span>
+                  {img.alt}
+                </figcaption>
               </figure>
             ))}
           </div>
@@ -132,7 +137,9 @@ export default function ModelDetailPage({ params }: ModelDetailPageProps) {
               <Info size={15} className="mt-0.5 shrink-0 text-apple-blue" />
               {gallery.isDemo
                 ? GALLERY_STATUS_TEXT
-                : "以下为门店现车实拍档案，车辆外观与配置以门店实际在售车辆及购销合同为准。"}
+                : gallery.images[0]?.kind === "reference"
+                  ? "车型摄影资料来源于公开产品资料，仅用于车型展示参考；具体外观、配置及在售状态以门店实际车辆为准。"
+                  : "以下为门店现车实拍档案，车辆外观与配置以门店实际在售车辆及购销合同为准。"}
             </p>
             <p className="mt-4 rounded-2xl bg-apple-bg px-4 py-3 text-xs leading-relaxed text-apple-subtext">
               现车库存与指导售价请咨询门店核实，本站不做任何未经确认的价格与库存承诺。

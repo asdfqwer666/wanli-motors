@@ -15,12 +15,12 @@ interface ModelsPageProps {
   searchParams?: { brand?: string; energy?: string; category?: string };
 }
 
-export default function ModelsPage({ searchParams }: ModelsPageProps) {
+export default async function ModelsPage({ searchParams }: ModelsPageProps) {
   const covers = Object.fromEntries(
-    models.map((m) => {
-      const { image, isDemo } = resolveCoverForSlug(m.slug);
-      return [m.slug, { src: image.src, alt: image.alt, isDemo }];
-    })
+    await Promise.all(models.map(async (m) => {
+      const { image, isDemo } = await resolveCoverForSlug(m.slug);
+      return [m.slug, { src: image.src, alt: image.alt, isDemo, kind: image.kind }];
+    }))
   );
 
   const brand = (["auman", "chenglong"] as BrandId[]).includes(searchParams?.brand as BrandId)

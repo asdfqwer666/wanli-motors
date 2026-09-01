@@ -4,6 +4,7 @@ import { getMediaFor } from "@/lib/model-media";
 import { requireAdmin } from "@/lib/auth";
 import AdminShell from "@/components/admin/AdminShell";
 import ImageWorkbench from "@/components/admin/ImageWorkbench";
+import { usesBlobStorage } from "@/lib/registry-io";
 
 export const metadata = {
   title: "车型媒体工作台",
@@ -16,13 +17,13 @@ interface AdminModelImagesPageProps {
   params: { slug: string };
 }
 
-export default function AdminModelImagesPage({ params }: AdminModelImagesPageProps) {
+export default async function AdminModelImagesPage({ params }: AdminModelImagesPageProps) {
   requireAdmin();
 
   const model = getModelBySlug(params.slug);
   if (!model) notFound();
 
-  const media = getMediaFor(model.slug);
+  const media = await getMediaFor(model.slug);
 
   return (
     <AdminShell
@@ -34,6 +35,7 @@ export default function AdminModelImagesPage({ params }: AdminModelImagesPagePro
         name={model.name}
         demoImages={media.demoImages}
         actualImages={media.actualImages}
+        useBlob={usesBlobStorage()}
       />
     </AdminShell>
   );

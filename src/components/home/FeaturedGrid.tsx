@@ -4,7 +4,10 @@ import { featuredModels } from "@/data/models";
 import { resolveCoverForSlug } from "@/lib/model-media";
 import ModelCard from "@/components/models/ModelCard";
 
-export default function FeaturedGrid() {
+export default async function FeaturedGrid() {
+  const covers = Object.fromEntries(
+    await Promise.all(featuredModels.map(async (model) => [model.slug, await resolveCoverForSlug(model.slug)] as const))
+  );
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -23,12 +26,12 @@ export default function FeaturedGrid() {
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {featuredModels.map((model) => {
-          const { image, isDemo } = resolveCoverForSlug(model.slug);
+          const { image, isDemo } = covers[model.slug];
           return (
             <ModelCard
               key={model.slug}
               model={model}
-              cover={{ src: image.src, alt: image.alt, isDemo }}
+              cover={{ src: image.src, alt: image.alt, isDemo, kind: image.kind }}
             />
           );
         })}

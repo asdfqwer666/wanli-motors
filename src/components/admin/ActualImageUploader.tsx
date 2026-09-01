@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { ArrowDown, ArrowUp, Loader2, Star, Trash2, Upload } from "lucide-react";
+import { upload } from "@vercel/blob/client";
 import type { ModelImage } from "@/types/media";
 import ImageFallback from "@/components/common/ImageFallback";
 import { cn } from "@/lib/utils";
@@ -9,17 +10,28 @@ import { cn } from "@/lib/utils";
 interface ActualImageUploaderProps {
   slug: string;
   actualImages: ModelImage[];
+  useBlob: boolean;
   onError: (message: string | null) => void;
 }
 
-export default function ActualImageUploader({ slug, actualImages, onError }: ActualImageUploaderProps) {
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const MAX_BATCH = 10;
+
+const extensionByType: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/avif": "avif"
+};
+
+export default function ActualImageUploader({ slug, actualImages, useBlob, onError }: ActualImageUploaderProps) {
   const [busy, setBusy] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const sorted = [...actualImages].sort((a, b) => a.sortOrder - b.sortOrder);
 
-  const request = async (init: RequestInit): Promise<boolean> => {
+  const request = async (init: RequestInit, reload = true): Promise<boolean> => {
     setBusy(true);
     onError(null);
     try {
@@ -29,7 +41,7 @@ export default function ActualImageUploader({ slug, actualImages, onError }: Act
         onError(data?.error ?? "操作失败，请重试。");
         return false;
       }
-      window.location.reload();
+      if (reload) window.location.reload();
       return true;
     } catch {
       onError("网络异常，请重试。");
@@ -42,6 +54,44 @@ export default function ActualImageUploader({ slug, actualImages, onError }: Act
   const uploadFiles = async (files: FileList | File[]) => {
     const list = Array.from(files).filter((f) => f.size > 0);
     if (list.length === 0) return;
+    if (list.length > MAX_BATCH) {
+      onError(`单次最多上传 ${MAX_BATCH} 张图片。`);
+      return;
+    }
+    const invalid = list.find((file) => !extensionByType[file.type] || file.size > MAX_FILE_BYTES);
+    if (invalid) {
+      onError(`「${invalid.name}」格式不受支持或超过 10MB。`);
+      return;
+    }
+
+    if (useBlob) {
+      setBusy(true);
+      onError(null);
+      try {
+        for (const file of list) {
+          const pathname = `incoming/models/${slug}/${crypto.randomUUID()}.${extensionByType[file.type]}`;
+          const blob = await upload(pathname, file, {
+            access: "public",
+            handleUploadUrl: `/api/admin/models/${slug}/images/blob-token`,
+            multipart: file.size >= 5 * 1024 * 1024,
+            contentType: file.type
+          });
+          const ok = await request({
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ blobUrl: blob.url, pathname: blob.pathname })
+          }, false);
+          if (!ok) return;
+        }
+        window.location.reload();
+      } catch (error) {
+        onError(error instanceof Error ? error.message : "上传失败，请重试。");
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
     const fd = new FormData();
     list.forEach((f) => fd.append("files", f));
     await request({ method: "POST", body: fd });
@@ -155,6 +205,16 @@ export default function ActualImageUploader({ slug, actualImages, onError }: Act
                       if (next && next !== img.alt) patch({ id: img.id, alt: next });
                     }}
                     placeholder="图片描述（失焦自动保存）"
+                    className="mt-2 w-full rounded-lg border border-apple-border bg-white px-2.5 py-1.5 text-xs outline-none focus:border-apple-blue"
+                  />
+                  <input
+                    type="text"
+                    defaultValue={img.note ?? ""}
+                    onBlur={(e) => {
+                      const next = e.target.value.trim();
+                      if (next !== (img.note ?? "")) patch({ id: img.id, note: next });
+                    }}
+                    placeholder="内部备注（失焦自动保存）"
                     className="mt-2 w-full rounded-lg border border-apple-border bg-white px-2.5 py-1.5 text-xs outline-none focus:border-apple-blue"
                   />
                 </div>

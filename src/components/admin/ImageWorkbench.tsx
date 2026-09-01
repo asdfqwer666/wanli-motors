@@ -10,9 +10,10 @@ interface ImageWorkbenchProps {
   name: string;
   demoImages: ModelImage[];
   actualImages: ModelImage[];
+  useBlob: boolean;
 }
 
-export default function ImageWorkbench({ slug, name, demoImages, actualImages }: ImageWorkbenchProps) {
+export default function ImageWorkbench({ slug, name, demoImages, actualImages, useBlob }: ImageWorkbenchProps) {
   const [error, setError] = useState<string | null>(null);
 
   return (
@@ -25,7 +26,7 @@ export default function ImageWorkbench({ slug, name, demoImages, actualImages }:
 
       <div className="grid gap-6 lg:grid-cols-2">
         <DemoArchiveViewer demoImages={demoImages} />
-        <ActualImageUploader slug={slug} actualImages={actualImages} onError={setError} />
+        <ActualImageUploader slug={slug} actualImages={actualImages} useBlob={useBlob} onError={setError} />
       </div>
 
       <p className="mt-6 text-xs leading-relaxed text-apple-subtext">
