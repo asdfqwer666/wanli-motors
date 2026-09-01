@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { del, list, put } from "@vercel/blob";
+import { del, get, put } from "@vercel/blob";
 import type { MediaRegistry, ModelImage, ModelMediaData } from "@/types/media";
 
 export const REGISTRY_PATH = path.join(process.cwd(), "data", "media-registry.json");
@@ -72,12 +72,9 @@ export async function readModelMedia(slug: string): Promise<ModelMediaData> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return emptyMediaData();
 
   try {
-    const result = await list({ prefix: metadataPath(slug), limit: 1 });
-    const blob = result.blobs.find((item) => item.pathname === metadataPath(slug));
-    if (!blob) return emptyMediaData();
-    const response = await fetch(blob.url, { cache: "no-store" });
-    if (!response.ok) return emptyMediaData();
-    return normalizeMediaData((await response.json()) as Partial<ModelMediaData>);
+    const result = await get(metadataPath(slug), { access: "public", useCache: false });
+    if (!result || result.statusCode !== 200) return emptyMediaData();
+    return normalizeMediaData((await new Response(result.stream).json()) as Partial<ModelMediaData>);
   } catch (error) {
     console.error(`[media-storage] 无法读取 ${slug} 的 Blob 元数据，已回退演示图。`, error);
     return emptyMediaData();
